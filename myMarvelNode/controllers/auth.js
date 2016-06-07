@@ -17,7 +17,7 @@ router.post('/login', function(req, res) {
       res.send(err);
     } else if (user) {
       req.session.userId = user.id;
-      res.redirect('/welcome');
+      res.redirect('/landing-pad');
     } else {
       res.send('user and/or password invalid');
     }
@@ -40,7 +40,7 @@ router.post('/signup', function(req, res) {
     }
   }).spread(function(user, isNew) {
     if (isNew) {
-      res.redirect('/success1');
+      res.redirect('/landing-pad');
     } else {
       req.flash('danger', 'Username already taken. Please choose another.')
       res.redirect('/auth/signup');

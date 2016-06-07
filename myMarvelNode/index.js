@@ -56,43 +56,35 @@ app.get('/', function(req, res) {
 });
 
 
-// app.get('/results', function(req,res) {
-//   var query = req.query.q;
-//   // console.log(query);
-//   marvel.characters.findByName(query)
-//     .then(console.log)
-//     .fail(console.log('error'))
-//     .done(console.log('success'));
-// });
-// app.get('/results', function(req,res,err) {
-//   var query = req.query.q;
-//   marvel.characters.findByName(query, function(err,res,body) {
-//     var data = JSON.parse(body);
-//     if (!err && response.statusCode === 200 && data.results) {
-//       res.render('searchResult', {legos: data.results, q: query});
-//     } else {
-//       res.render('error');
-//     }
-//   })
-// });
-// var data = JSON.parse(body);
-//     if (!err && response.statusCode === 200 && data.results) {
-//       res.render('searchResult', {legos: data.results, q: query});
-//     } else {
-//       res.render('error');
-//     }
 app.get('/results', function(req,res) {
   var query = req.query.q;
-  console.log(query)
-  marvel.characters.findByName(query, function(err, response, body){
-    var data = JSON.stringify(body)
-if (!err && response.statusCode === 200 && data.results) {
-  res.render('results', {heros: data.results, q: query});
-} else {
-  res.render('error');
-}
-})
-})
+
+  marvel.characters.findByName(query)
+    .fail(function() {
+      console.log("error");
+    })
+    .done(function(response) {
+      console.log(response.data)
+      console.log(response.data.name)
+      res.send('results', {heros: response.data, q: query})
+    });
+});
+
+// WORKS!!! NO AJAX!!
+// app.get('/results', function(req,res) {
+//   var query = req.query.q;
+//
+//   marvel.characters.findByName(query)
+//     .fail(function() {
+//       console.log("error");
+//     })
+//     .done(function(response) {
+//       console.log(response.data)
+//       console.log(response.data.name)
+//       // res.render('results', {heros: response.data, q: query})
+//     });
+// });
+
 
 
 
