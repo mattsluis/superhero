@@ -7,24 +7,28 @@ var session = require('express-session');
 var request = require('request');
 
 //local dependencies
+var app = express();
 var authCtrl = require('./controllers/auth');
 var searchCtrl = require('./controllers/auth');
 var db = require('./models'); //every model represents a table in our table base
-var app = express();
+
 
 //marvel api wrapper
-var api = require('marvel-api');
-var marvel = api.createClient({
+var apiMarvel = require('marvel-api');
+var marvel = apiMarvel.createClient({
   publicKey: process.env.MARVEL_KEY_PUBLIC,
   privateKey: process.env.MARVEL_KEY_PRIVATE
 });
 
 app.set('view engine', 'ejs');
 app.use(ejsLayouts);
-app.use(bodyParser.urlencoded({extended:false}));
+
+
+app.use(bodyParser.json());
+
 app.use(express.static(__dirname + '/static'));
 app.use(session({
-  secret: 'SuperSecretLegoEncryption',
+  secret: 'ShuperShecretMarvelEncryption',
   resave: false,
   saveUninitialized: true
 }));
@@ -52,17 +56,43 @@ app.get('/', function(req, res) {
 });
 
 
+// app.get('/results', function(req,res) {
+//   var query = req.query.q;
+//   // console.log(query);
+//   marvel.characters.findByName(query)
+//     .then(console.log)
+//     .fail(console.log('error'))
+//     .done(console.log('success'));
+// });
+// app.get('/results', function(req,res,err) {
+//   var query = req.query.q;
+//   marvel.characters.findByName(query, function(err,res,body) {
+//     var data = JSON.parse(body);
+//     if (!err && response.statusCode === 200 && data.results) {
+//       res.render('searchResult', {legos: data.results, q: query});
+//     } else {
+//       res.render('error');
+//     }
+//   })
+// });
+// var data = JSON.parse(body);
+//     if (!err && response.statusCode === 200 && data.results) {
+//       res.render('searchResult', {legos: data.results, q: query});
+//     } else {
+//       res.render('error');
+//     }
 app.get('/results', function(req,res) {
-  // var query = req.query.q;
-  // console.log(query);
-  marvel.characters.findByName('spider-man')
-    .then(console.log)
-    .fail(console.error)
-    .done();
-});
-
-
-
+  var query = req.query.q;
+  console.log(query)
+  marvel.characters.findByName(query, function(err, response, body){
+    var data = JSON.stringify(body)
+if (!err && response.statusCode === 200 && data.results) {
+  res.render('results', {heros: data.results, q: query});
+} else {
+  res.render('error');
+}
+})
+})
 
 
 
