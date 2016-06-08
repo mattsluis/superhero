@@ -24,7 +24,7 @@ app.set('view engine', 'ejs');
 app.use(ejsLayouts);
 
 
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static(__dirname + '/static'));
 app.use(session({
@@ -54,10 +54,13 @@ app.use(authCtrl);
 app.get('/', function(req, res) {
   res.render('index');
 });
+app.get('/search', function(req, res) {
+  res.render('search', {heroes: []});
+});
 
-
-app.get('/results', function(req,res) {
-  var query = req.query.q;
+app.post('/results', function(req,res) {
+  var query = req.body.query;
+  console.log(query)
 
   marvel.characters.findByName(query)
     .fail(function() {
@@ -65,8 +68,8 @@ app.get('/results', function(req,res) {
     })
     .done(function(response) {
       console.log(response.data)
-      console.log(response.data.name)
-      res.send('results', {heros: response.data, q: query})
+
+      res.send({heroes: response.data})
     });
 });
 
