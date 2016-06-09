@@ -4,7 +4,9 @@ $('#formRed').submit(function(e) {
   $.ajax({
     url: '/search',
     method: 'POST',
-    data: {query: $('#inputRed').val()},
+    data: {
+      query: $('#inputRed').val()
+    },
     error: function(data) {
       console.log(data)
     },
@@ -29,7 +31,9 @@ $('#formBlue').submit(function(e) {
   $.ajax({
     url: '/search',
     method: 'POST',
-    data: {query: $('#inputBlue').val()},
+    data: {
+      query: $('#inputBlue').val()
+    },
     error: function(data) {
       console.log(data)
     },
@@ -52,3 +56,46 @@ $('#formBlue').submit(function(e) {
     }
   })
 });
+
+$('#addScenario').click(function(e) {
+  var fight = {
+        heroOne: $('#hideBlue').val(),
+        heroTwo: $('#hideRed').val()
+      }
+      console.log(fight);
+  $.ajax({
+    url: '/scenarios-user',
+    method: 'POST',
+    data: fight,
+    error: function(data) {
+      console.log(data)
+    },
+    success: function() {
+      console.log('success');
+      window.location = '/scenarios-user';
+    }
+  })
+})
+
+//
+//
+// $('#collection-btn').click(function(e) {
+//
+//   var addCollection = {
+//     title: $('#title').text(),
+//     year: $('#year').text(),
+//     set_id: $('#set_id').text(),
+//     imglink: $('#legoimg').attr("src")
+//   }
+//   console.log(addCollection);
+//
+//   $.ajax({
+//     url: '/collection',
+//     method: 'POST',
+//     data: addCollection,
+//     success: function() {
+//       window.location = '/collection';
+//     }
+//
+//   })
+// });

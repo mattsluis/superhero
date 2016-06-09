@@ -5,7 +5,7 @@
       <button id="buttonRed" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
     </form>
     <div id="red">
-      <div id="hideRed"></div>
+
       <img id="imgRed" src=''/>
       <h5 id="HRed"></h5>
       <p id="PRed"></p>
@@ -19,7 +19,7 @@
     <button id="buttonBlue" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
   </form>
   <div id="blueCorner">
-    <div id="hideBlue"></div>
+
     <img id="imgBlue" src=''/>
     <h5 id="HBlue"></h5>
     <p id="PBlue"></p>
@@ -29,11 +29,12 @@
 
 <% if (currentUser) { %>
 <div class="col-xs-6 col-sm-6 col-m-6 col-l-6 col-xl-6">
-  <div class="form-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-danger">red</button>
-    <button type="button" class="btn btn-primary">blue</button>
-    <input type="text" class="form-control" aria-label="...">
-    <button id="addScenario" class='btn btn-default'type="submit">Submit</button>
-  </div>
+  <form id="fight" class="btn-group form-group" role="group" aria-label="..."  data-toggle="buttons-radio">
+    <div id="hideBlue"></div>
+    <div id="hideRed"></div>
+
+    <input type="text" class="form-control"></input>
+    <button id="addScenario" class='btn btn-default' type="submit">Submit</button>
+  </form>
 </div>
 <% } %>

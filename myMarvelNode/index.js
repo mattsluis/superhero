@@ -83,13 +83,43 @@ app.get('/scenarios-user', function(req,res) {
 });
 
 app.post('/scenarios-user', function(req, res) {
-  var redId = '';
-  var blueId = '';
-  var redWin = '';
-  var comment = '';
-  db.scenario.create(redId, blueId, redWin, comment)
+  var addScenario = req.body;
+  console.log(addScenario);
+  db.scenario.create(addScenario)
+  .then(function(scenario) {
+    console.log("adding collection to users");
+    console.log(req.currentUser);
+    if (req.currentUser) {
+      req.currentUser.addScenario(scenario);
+      res.status(200).send('Added to Collection');
+    } else {
+      res.status(500).send("Please Log In");
+      res.redirect('/');
+    }
+  });
+});
+
+// post collection
+// app.post('/collection', function(req, res) {
+//   var addToCollection = req.body;
+//   console.log("saving collection");
+//   console.log(addToCollection);
+//   console.log("creating collection");
+//   db.collection.create(addToCollection).then(function(collection) {
+//     console.log("adding collection to users");
+//     console.log(req.currentUser);
+//     if (req.currentUser) {
+//       req.currentUser.addCollection(collection);
+//       res.status(200).send('Added to Collection');
+//     } else {
+//       res.status(500).send("Please Log In");
+//       res.redirect('/');
+//     }
+//   });
+// });
+
 //
-// WORKS!!! NO AJAX!!
+// no ajax query
 // app.get('/results', function(req,res) {
 //   var query = req.query.q;
 //
