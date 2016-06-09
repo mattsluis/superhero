@@ -48,7 +48,7 @@ app.use(function(req, res, next) {
   }
 });
 
-app.use(authCtrl);
+app.use('/auth' ,authCtrl);
 // app.use(searchCtrl);
 
 app.get('/', function(req, res) {
@@ -58,7 +58,9 @@ app.get('/search', function(req, res) {
   res.render('search', {heroes: []});
 });
 
-app.post('/results', function(req,res) {
+
+
+app.post('/search', function(req,res) {
   var query = req.body.query;
   console.log(query)
 
@@ -73,6 +75,20 @@ app.post('/results', function(req,res) {
     });
 });
 
+app.get('/landing-pad', function(req,res) {
+  res.render('landing-pad')
+});
+app.get('/scenarios-user', function(req,res) {
+  res.render('scenarios-user')
+});
+
+app.post('/scenarios-user', function(req, res) {
+  var redId = '';
+  var blueId = '';
+  var redWin = '';
+  var comment = '';
+  db.scenario.create(redId, blueId, redWin, comment)
+//
 // WORKS!!! NO AJAX!!
 // app.get('/results', function(req,res) {
 //   var query = req.query.q;
@@ -83,11 +99,11 @@ app.post('/results', function(req,res) {
 //     })
 //     .done(function(response) {
 //       console.log(response.data)
-//       console.log(response.data.name)
-//       // res.render('results', {heros: response.data, q: query})
+//
+//       res.render('results', {heroes: response.data, q: query})
 //     });
 // });
-
+//
 
 
 

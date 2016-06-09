@@ -1,35 +1,39 @@
-<div class="col-sm-12">
-  <h4 class="results"> Results:</h4>
-    <div class="col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-      <form id="formLeft" class="navbar-form" role="search">
-        <input id="inputLeft" type="text" class="form-control" id="inputLeft" placeholder="Search" name="q"></input>
-        <button id="buttonLeft" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-      </form>
-
-        <% heroes.forEach(function(hero) { %>
-        <h5 id="name"><%= hero.name %></h5>
-        <img id="imgLink" src="<%= hero.thumbnail.path + '/portrait_medium' + '.' + hero.thumbnail.extension %>" class="heroImg"/>
-        <p id="description">DESCRIPTION: <%= hero.description %></p>
-        <li id="storyCount">STORIES AVAILABLE: <%= hero.stories.available %></li>
-
-      <% }); %>
+<div class="col-xs-6 col-sm-6 col-m-6 col-l-6 col-xl-6">
+  <h4> Red Corner</h4>
+    <form id="formRed" class="navbar-form" role="search">
+      <input id="inputRed" type="text" class="form-control" placeholder="Search" name="q"></input>
+      <button id="buttonRed" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+    </form>
+    <div id="red">
+      <div id="hideRed"></div>
+      <img id="imgRed" src=''/>
+      <h5 id="HRed"></h5>
+      <p id="PRed"></p>
     </div>
-
-
-    <div class="col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
-      <form id="formRight" class="navbar-form" role="search">
-        <input id="inputRight" type="text" class="form-control" placeholder="Search" name="q"></input>
-        <button id="buttonRight" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-      </form>
-      <% heroes.forEach(function(hero) { %>
-      <h5><%= hero.name %></h5>
-      <img src="<%= hero.thumbnail.path + '/portrait_medium' + '.' + hero.thumbnail.extension %>" class="heroImg"/>
-      <p>DESCRIPTION: <%= hero.description %></p>
-      <li>STORIES AVAILABLE: <%= hero.stories.available %></li>
-       <%= hero.stories.items %>
-
-      <% }); %>
-    </div>
-
-
 </div>
+
+<div class="col-xs-6 col-sm-6 col-m-6 col-l-6 col-xl-6">
+  <h4> Blue Corner</h4>
+  <form id="formBlue" class="navbar-form" role="search">
+    <input id="inputBlue" type="text" class="form-control" placeholder="Search" name="q"></input>
+    <button id="buttonBlue" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+  </form>
+  <div id="blueCorner">
+    <div id="hideBlue"></div>
+    <img id="imgBlue" src=''/>
+    <h5 id="HBlue"></h5>
+    <p id="PBlue"></p>
+  </div>
+</div>
+
+
+<% if (currentUser) { %>
+<div class="col-xs-6 col-sm-6 col-m-6 col-l-6 col-xl-6">
+  <div class="form-group" role="group" aria-label="...">
+    <button type="button" class="btn btn-danger">red</button>
+    <button type="button" class="btn btn-primary">blue</button>
+    <input type="text" class="form-control" aria-label="...">
+    <button id="addScenario" class='btn btn-default'type="submit">Submit</button>
+  </div>
+</div>
+<% } %>

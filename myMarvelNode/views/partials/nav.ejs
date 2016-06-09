@@ -1,27 +1,31 @@
 
- <div class="navbar navbar-default navbar-static-top" role="navigation">
+<div class="navbar navbar-default navbar-static-top" role="navigation">
 
-   <div class="navbar-header">
-     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-       <span class="sr-only">Toggle navigation</span>
-       <span class="icon-bar"></span>
-       <span class="icon-bar"></span>
-       <span class="icon-bar"></span>
-     </button>
-     <a class="navbar-brand" rel="home" href="/">MARVEL</a>
-   </div>
-  <div class="collapse navbar-collapse navbar-ex1-collapse">
-
-   <ul class="nav navbar-nav">
-     <li><a href="/search">Search</a></li>
-     <% if (currentUser) { %>
-     <li ><a id="logout" href="/auth/logout">Logout <%= currentUser.username %></a></li>
-     <% } %>
-   </ul>
-
-   <div class="col-sm-3 col-md-3 pull-right">
-
-   </div>
-
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" rel="home" href="/">MARVEL</a>
   </div>
- </div>
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+  <ul class="nav navbar-nav">
+
+    <% if (currentUser) { %>
+    <li><a href="/search">Search</a></li>
+    <li><a href="/scenarios-user">myScenarios</a></li>
+    <% } %>
+  </ul>
+
+  <div class="col-sm-3 col-md-3 pull-right">
+    <ul class="nav navbar-nav">
+  <% if (currentUser) { %>
+    <li ><a id="logout" href="/auth/logout">Logout <%= currentUser.username %></a></li>
+   <% } %>
+    </ul>
+  </div>
+
+</div>
+</div>

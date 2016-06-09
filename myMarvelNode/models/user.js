@@ -12,9 +12,9 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     classMethods: {
-      // associate: function(models) {
-      //   models.user.hasMany(models.collection);
-      // },
+      associate: function(models) {
+        models.user.hasMany(models.scenario);
+      },
       authenticate: function(username, password, callback) {
         // find the user in the database
         this.find({where: {username: username}}).then(function(user) {

@@ -19,7 +19,7 @@ router.post('/login', function(req, res) {
       req.session.userId = user.id;
       res.redirect('/landing-pad');
     } else {
-      res.send('user and/or password invalid');
+      req.flash('user and/or password invalid');
     }
   });
 });
