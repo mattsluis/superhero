@@ -1,3 +1,30 @@
+@font-face {
+    font-family: fantasti-font;
+    src: url(fantasti-font.ttf);
+}
+@font-face {
+    font-family: fantique-four;
+    src: url(fantique-four.ttf);
+}
+@font-face {
+    font-family: the-mighty-avengers;
+    src: url(the-mighty-avengers.ttf);
+}
+
+
+.navbar-default{
+  font-family: fantique-four;
+  font-size: 23px;
+  color: black;
+  background-image: url('../imgs/boom.jpeg');
+  background-repeat: repeat-x;
+
+}
+#brand {
+  font-family: fantasti-font;
+  font-size: 25px;
+  color: black;
+}
 body {
-  background-color: red;
+  background-color: gray;
 }

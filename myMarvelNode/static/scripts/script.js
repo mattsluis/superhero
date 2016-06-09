@@ -1,3 +1,4 @@
+//Search Red
 $('#formRed').submit(function(e) {
   console.log('submitted')
   e.preventDefault();
@@ -25,6 +26,8 @@ $('#formRed').submit(function(e) {
     }
   });
 });
+
+//Search Blue
 $('#formBlue').submit(function(e) {
   console.log('submitted')
   e.preventDefault();
@@ -35,17 +38,18 @@ $('#formBlue').submit(function(e) {
       query: $('#inputBlue').val()
     },
     error: function(data) {
-      console.log(data)
+      console.log(data);
     },
     success: function(data) {
-      console.log('data:')
-      console.log(data)
-      var id = (data.heroes[0].id)
-      var name = (data.heroes[0].name)
-      var desc = (data.heroes[0].description)
+      console.log('data:');
+      console.log(data);
+      var id = (data.heroes[0].id);
+      var name = (data.heroes[0].name);
+      var desc = (data.heroes[0].description);
       var img = (data.heroes[0].thumbnail.path);
       var ext = (data.heroes[0].thumbnail.extension);
       var imgLink = (img + '/portrait_uncanny' + '.' + ext);
+      var comicLink = (data.heroes[0].comics.available)
       $('#hideBlue').text(id);
       $('#imgBlue').attr('src', imgLink);
       $('#HBlue').text(name);
@@ -56,11 +60,13 @@ $('#formBlue').submit(function(e) {
     }
   })
 });
-
-$('#addScenario').click(function(e) {
+//red corner
+$('#addScenarioRW').click(function(e) {
   var fight = {
-        heroOne: $('#hideBlue').val(),
-        heroTwo: $('#hideRed').val()
+        heroOne: $('#HBlue').text(),
+        heroTwo: $('#HRed').text(),
+        comment: $('#comment').val(),
+        winner: (true)
       }
       console.log(fight);
   $.ajax({
@@ -76,26 +82,45 @@ $('#addScenario').click(function(e) {
     }
   })
 })
+//blue corner
+$('#addScenarioBW').click(function(e) {
+  var fight = {
+        heroOne: $('#HBlue').text(),
+        heroTwo: $('#HRed').text(),
+        comment: $('#comment').val(),
+        winner: false
+      }
+      console.log(fight);
+  $.ajax({
+    url: '/scenarios-user',
+    method: 'POST',
+    data: fight,
+    error: function(data) {
+      console.log(data)
+    },
+    success: function() {
+      console.log('success');
+      window.location = '/scenarios-user';
+    }
+  })
+})
+//remove user scenarios
+$('.remove').click(function(e) {
+  console.log($(this).attr('scenarioId'))
+  var element = $(this);
+  var delScenario = {
+    id: $(this).attr('scenarioId')
+  }
+  console.log(delScenario);
 
-//
-//
-// $('#collection-btn').click(function(e) {
-//
-//   var addCollection = {
-//     title: $('#title').text(),
-//     year: $('#year').text(),
-//     set_id: $('#set_id').text(),
-//     imglink: $('#legoimg').attr("src")
-//   }
-//   console.log(addCollection);
-//
-//   $.ajax({
-//     url: '/collection',
-//     method: 'POST',
-//     data: addCollection,
-//     success: function() {
-//       window.location = '/collection';
-//     }
-//
-//   })
-// });
+  var onDone = function() {
+    console.log('deleted', delScenario, element);
+    window.location = window.location.pathname;
+  };
+
+  $.ajax({
+    url: '/scenarios-user/',
+    method: 'DELETE',
+    data: delScenario,
+  }).done(onDone);
+});

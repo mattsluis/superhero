@@ -49,74 +49,77 @@ app.use(function(req, res, next) {
 });
 
 app.use('/auth' ,authCtrl);
-// app.use(searchCtrl);
 
 app.get('/', function(req, res) {
-  res.render('index');
+  db.scenario.findAll()
+  .then(function(scenarios) {
+    res.render('index', {
+      scenarios: scenarios
+    })
+  });
 });
+
+app.get('/landing-pad', function(req,res) {
+  res.render('landing-pad')
+});
+
 app.get('/search', function(req, res) {
   res.render('search', {heroes: []});
 });
 
-
-
 app.post('/search', function(req,res) {
   var query = req.body.query;
   console.log(query)
-
   marvel.characters.findByName(query)
     .fail(function() {
       console.log("error");
     })
     .done(function(response) {
       console.log(response.data)
-
       res.send({heroes: response.data})
     });
 });
 
-app.get('/landing-pad', function(req,res) {
-  res.render('landing-pad')
-});
-app.get('/scenarios-user', function(req,res) {
-  res.render('scenarios-user')
+app.get('/scenarios-user', function(req, res) {
+  console.log(req.currentUser.id)
+  db.scenario.findAll({where: {userId: req.currentUser.id}})
+  .then(function(scenarios) {
+    res.render('scenarios-user', {
+      scenarios: scenarios
+    });
+  });
 });
 
 app.post('/scenarios-user', function(req, res) {
   var addScenario = req.body;
-  console.log(addScenario);
+  console.log('Incoming Scenario!!!!!! ', addScenario);
   db.scenario.create(addScenario)
   .then(function(scenario) {
     console.log("adding collection to users");
     console.log(req.currentUser);
     if (req.currentUser) {
       req.currentUser.addScenario(scenario);
-      res.status(200).send('Added to Collection');
+      res.status(200).send('Added to myScenarios');
     } else {
-      res.status(500).send("Please Log In");
+      res.status(500).send("Log In");
       res.redirect('/');
     }
   });
 });
 
-// post collection
-// app.post('/collection', function(req, res) {
-//   var addToCollection = req.body;
-//   console.log("saving collection");
-//   console.log(addToCollection);
-//   console.log("creating collection");
-//   db.collection.create(addToCollection).then(function(collection) {
-//     console.log("adding collection to users");
-//     console.log(req.currentUser);
-//     if (req.currentUser) {
-//       req.currentUser.addCollection(collection);
-//       res.status(200).send('Added to Collection');
-//     } else {
-//       res.status(500).send("Please Log In");
-//       res.redirect('/');
-//     }
-//   });
-// });
+app.delete('/scenarios-user', function(req,res) {
+  var deleteId = req.body.id;
+  console.log(deleteId);
+  db.scenario.find({where: {id: deleteId}})
+  .then(function(scenario) {
+    scenario.destroy().then(function(){
+      console.log("Destroyed");
+      res.sendStatus(200);
+    });
+  });
+});
+
+
 
 //
 // no ajax query

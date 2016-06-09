@@ -1,40 +1,50 @@
-<div class="col-xs-6 col-sm-6 col-m-6 col-l-6 col-xl-6">
-  <h4> Red Corner</h4>
-    <form id="formRed" class="navbar-form" role="search">
-      <input id="inputRed" type="text" class="form-control" placeholder="Search" name="q"></input>
-      <button id="buttonRed" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+
+<div class="row">
+  <div class="col-xs-6 col-sm-6 col-m-6 col-l-6 col-xl-6">
+    <h4> Red Corner</h4>
+      <form id="formRed" class="navbar-form" role="search">
+        <input id="inputRed" type="text" class="form-control" placeholder="Search" name="q"></input>
+        <button id="buttonRed" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+      </form>
+      <div id="red">
+
+        <div id="hideRed"></div>
+
+        <img id="imgRed" src=''/>
+        <h5 id="HRed"></h5>
+        <p id="PRed"></p>
+      </div>
+  </div>
+
+
+  <div class="col-xs-6 col-sm-6 col-m-6 col-l-6 col-xl-6">
+    <h4> Blue Corner</h4>
+    <form id="formBlue" class="navbar-form" role="search">
+      <input id="inputBlue" type="text" class="form-control" placeholder="Search" name="q"></input>
+      <button id="buttonBlue" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
     </form>
-    <div id="red">
-
-      <img id="imgRed" src=''/>
-      <h5 id="HRed"></h5>
-      <p id="PRed"></p>
+    <div id="blueCorner">
+      <div id="hideBlue"></div>
+      <img id="imgBlue" src=''/>
+      <h5 id="HBlue"></h5>
+      <p id="PBlue"></p>
+      <a href=""> </a>
     </div>
-</div>
-
-<div class="col-xs-6 col-sm-6 col-m-6 col-l-6 col-xl-6">
-  <h4> Blue Corner</h4>
-  <form id="formBlue" class="navbar-form" role="search">
-    <input id="inputBlue" type="text" class="form-control" placeholder="Search" name="q"></input>
-    <button id="buttonBlue" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-  </form>
-  <div id="blueCorner">
-
-    <img id="imgBlue" src=''/>
-    <h5 id="HBlue"></h5>
-    <p id="PBlue"></p>
   </div>
 </div>
 
-
+<div class="row">
 <% if (currentUser) { %>
-<div class="col-xs-6 col-sm-6 col-m-6 col-l-6 col-xl-6">
-  <form id="fight" class="btn-group form-group" role="group" aria-label="..."  data-toggle="buttons-radio">
-    <div id="hideBlue"></div>
-    <div id="hideRed"></div>
+  <div class="col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-l-offset-3 col-xl-offset-3 col-xs-6 col-sm-6 col-m-6 col-l-6 col-xl-6">
+    <form id="fight" class="btn-group form-group" role="group" aria-label="..."  data-toggle="buttons-radio">
 
-    <input type="text" class="form-control"></input>
-    <button id="addScenario" class='btn btn-default' type="submit">Submit</button>
-  </form>
-</div>
+
+
+      <input id="comment"type="text" class="form-control"></input>
+      <button id="addScenarioRW" type="submit" class="btn btn-danger">Red Corner</button>
+      <button id="addScenarioBW" type="submit" class="btn btn-primary">Blue Corner</button>
+
+    </form>
+  </div>
 <% } %>
+</div>
