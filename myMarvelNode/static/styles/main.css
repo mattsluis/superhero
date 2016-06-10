@@ -10,13 +10,15 @@
     font-family: the-mighty-avengers;
     src: url(the-mighty-avengers.ttf);
 }
-
+body {
+  background-image: url('../imgs/dotz.jpeg');
+}
 
 .navbar-default{
   font-family: fantique-four;
   font-size: 23px;
   color: black;
-  background-image: url('../imgs/boom.jpeg');
+  background-image: url('../imgs/bg.jpeg');
   background-repeat: repeat-x;
 
 }
@@ -27,4 +29,18 @@
 }
 body {
   background-color: gray;
+}
+.remove {
+  float: right;
+}
+
+.user-scenarios {
+  list-style-type: none;
+}
+.user-scenarios > li{
+  margin: 15px 0;
+}
+
+.user-scenarios > li > a {
+   text-decoration: none;
 }

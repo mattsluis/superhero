@@ -1,12 +1,13 @@
 <div class="col-xs-6 col-s-6 col-m-6 col-l-6 col-xl-6">
   <% if (currentUser) { %>
   <h1 class="myFights"> myFights</h1>
-  <h5>Here are your scenarios  <%= currentUser.username %> </h5>
-  <ul>
+  <h5>Here are your scenarios  <%= currentUser.userName %> </h5>
+  <ul class="user-scenarios">
     <% scenarios.forEach(function(scenario) { %>
     <li><a href='#'><%= scenario.heroOne %> vs. <%= scenario.heroTwo %>
-      <button scenarioId="<%= scenario.id %>" type="submit" class="remove btn btn-danger">Delete</button>
+      <button scenarioId="<%= scenario.id %>" type="submit" class="remove btn-sm btn-danger">Delete</button>
     </a></li>
+    <li></li>
     <% }); %>
   </ul>
   <% }; %>

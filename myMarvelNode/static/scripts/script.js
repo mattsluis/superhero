@@ -49,7 +49,7 @@ $('#formBlue').submit(function(e) {
       var img = (data.heroes[0].thumbnail.path);
       var ext = (data.heroes[0].thumbnail.extension);
       var imgLink = (img + '/portrait_uncanny' + '.' + ext);
-      var comicLink = (data.heroes[0].comics.available)
+      // var comicLink = (data.heroes[0].comics.available)
       $('#hideBlue').text(id);
       $('#imgBlue').attr('src', imgLink);
       $('#HBlue').text(name);
@@ -60,34 +60,33 @@ $('#formBlue').submit(function(e) {
     }
   })
 });
-//red corner
+//Pick red corner win
 $('#addScenarioRW').click(function(e) {
   var fight = {
         heroOne: $('#HBlue').text(),
         heroTwo: $('#HRed').text(),
-        comment: $('#comment').val(),
-        winner: (true)
-      }
-      console.log(fight);
-  $.ajax({
-    url: '/scenarios-user',
-    method: 'POST',
-    data: fight,
-    error: function(data) {
-      console.log(data)
-    },
-    success: function() {
-      console.log('success');
-      window.location = '/scenarios-user';
+        comment: $('#explanation').val(),
+        winner: true
+      };
+      $.ajax({
+        url: '/scenarios-user',
+        method: 'POST',
+        data: fight,
+        error: function(data) {
+          console.log(data)
+        },
+        success: function() {
+          console.log('success');
+          window.location = '/scenarios-user';
     }
   })
 })
-//blue corner
+//pick blue corner win
 $('#addScenarioBW').click(function(e) {
   var fight = {
         heroOne: $('#HBlue').text(),
         heroTwo: $('#HRed').text(),
-        comment: $('#comment').val(),
+        comment: $('#explanation').val(),
         winner: false
       }
       console.log(fight);
@@ -112,15 +111,35 @@ $('.remove').click(function(e) {
     id: $(this).attr('scenarioId')
   }
   console.log(delScenario);
-
   var onDone = function() {
     console.log('deleted', delScenario, element);
     window.location = window.location.pathname;
   };
-
   $.ajax({
     url: '/scenarios-user/',
     method: 'DELETE',
     data: delScenario,
   }).done(onDone);
+});
+
+$('.viewInfo').click(function(e){
+  e.preventDefault()
+  console.log('clicked')
+  var scenId = {
+    id: $(this).attr('viewId')
+  }
+  console.log(scenId);
+
+  $.ajax({
+    url: '/fight',
+    method: 'POST',
+    data: scenId,
+    error: function(data) {
+      console.log(data)
+    },
+    success: function() {
+      console.log('success');
+      window.location = '/fight';
+    }
+  })
 });

@@ -8,13 +8,14 @@ router.get('/logout', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
-  // proving we get the username and password
-  var user = req.body.username;
+  // proving we get the userName and password
+  var user = req.body.userName;
   var pass = req.body.password;
+  console.log("credentials", user, pass);
   db.user.authenticate(user, pass, function(err, user) {
     // user successfully logged in.
     if (err) {
-      res.send(err);
+      res.send({error: err, bonus: "bonus"});
     } else if (user) {
       req.session.userId = user.id;
       res.redirect('/landing-pad');
@@ -33,7 +34,7 @@ router.get('/signup', function(req, res) {
 router.post('/signup', function(req, res) {
   db.user.findOrCreate({
     where: {
-      username: req.body.username,
+      userName: req.body.userName,
     },
     defaults: {
       password: req.body.password
@@ -42,7 +43,7 @@ router.post('/signup', function(req, res) {
     if (isNew) {
       res.redirect('/landing-pad');
     } else {
-      req.flash('danger', 'Username already taken. Please choose another.')
+      req.flash('danger', 'userName already taken. Please choose another.')
       res.redirect('/auth/signup');
     }
   }).catch(function(err) {

@@ -3,7 +3,7 @@ var bcrypt = require('bcrypt');
 
 module.exports = function(sequelize, DataTypes) {
   var user = sequelize.define('user', {
-    username: DataTypes.STRING,
+    userName: DataTypes.STRING,
     password: {
       type:DataTypes.STRING,
       validate: {
@@ -14,11 +14,12 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         models.user.hasMany(models.scenario);
+        models.user.hasMany(models.comment);
       },
-      authenticate: function(username, password, callback) {
+      authenticate: function(userName, password, callback) {
         // find the user in the database
-        this.find({where: {username: username}}).then(function(user) {
-          // if there's no username with the username then raise a 'no user' error
+        this.find({where: {userName: userName}}).then(function(user) {
+          // if there's no userName with the userName then raise a 'no user' error
           if (!user) callback(null, false);
           // if a user record comes back, compare the password to the hash
           bcrypt.compare(password, user.password, function(err, result) {

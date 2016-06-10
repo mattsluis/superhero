@@ -36,7 +36,8 @@ app.use(session({
 app.use(flash());
 app.use(function(req, res, next) {
   if (req.session.userId) {
-    db.user.findById(req.session.userId).then(function(user) {
+    db.user.findById(req.session.userId)
+    .then(function(user) {
       req.currentUser = user;
       res.locals.currentUser = user;
       next();
@@ -53,9 +54,7 @@ app.use('/auth' ,authCtrl);
 app.get('/', function(req, res) {
   db.scenario.findAll()
   .then(function(scenarios) {
-    res.render('index', {
-      scenarios: scenarios
-    })
+    res.render('index', {scenarios: scenarios})
   });
 });
 
@@ -64,7 +63,7 @@ app.get('/landing-pad', function(req,res) {
 });
 
 app.get('/search', function(req, res) {
-  res.render('search', {heroes: []});
+  res.render('search');
 });
 
 app.post('/search', function(req,res) {
@@ -80,19 +79,40 @@ app.post('/search', function(req,res) {
     });
 });
 
+app.get('/fight', function(req,res) {
+  res.render('fight', {
+    scenario: req.body
+
+  })
+
+});
+app.post('/fight', function(req,res) {
+  console.log(req.body.id)
+  var scenId = req.body.id;
+  db.scenario.findById(scenId)
+  .then(function(scenario){
+    console.log(scenario.dataValues.id)
+    res.render('fight', {
+      scenario: scenario
+
+    })
+  })
+});
+
 app.get('/scenarios-user', function(req, res) {
   console.log(req.currentUser.id)
-  db.scenario.findAll({where: {userId: req.currentUser.id}})
-  .then(function(scenarios) {
-    res.render('scenarios-user', {
-      scenarios: scenarios
-    });
+  db.scenario.findAll({where:
+    {userId: req.currentUser.id}
+  }).then(function(scenarios) {
+      res.render('scenarios-user',
+      {scenarios: scenarios}
+    )
   });
 });
 
 app.post('/scenarios-user', function(req, res) {
   var addScenario = req.body;
-  console.log('Incoming Scenario!!!!!! ', addScenario);
+  console.log('Incoming Fight!', addScenario);
   db.scenario.create(addScenario)
   .then(function(scenario) {
     console.log("adding collection to users");
@@ -110,34 +130,17 @@ app.post('/scenarios-user', function(req, res) {
 app.delete('/scenarios-user', function(req,res) {
   var deleteId = req.body.id;
   console.log(deleteId);
-  db.scenario.find({where: {id: deleteId}})
+  db.scenario.find({where:
+    {id: deleteId}
+  })
   .then(function(scenario) {
-    scenario.destroy().then(function(){
+    scenario.destroy()
+    .then(function() {
       console.log("Destroyed");
       res.sendStatus(200);
     });
   });
 });
-
-
-
-//
-// no ajax query
-// app.get('/results', function(req,res) {
-//   var query = req.query.q;
-//
-//   marvel.characters.findByName(query)
-//     .fail(function() {
-//       console.log("error");
-//     })
-//     .done(function(response) {
-//       console.log(response.data)
-//
-//       res.render('results', {heroes: response.data, q: query})
-//     });
-// });
-//
-
 
 
 var port=3000;

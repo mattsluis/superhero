@@ -17,11 +17,14 @@ module.exports = {
       heroTwo: {
         type: Sequelize.STRING
       },
-      voteCount: {
-        type: Sequelize.INTEGER
-      },
       comment: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
+      },
+      winner: {
+        type: Sequelize.BOOLEAN
+      },
+      vote: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
