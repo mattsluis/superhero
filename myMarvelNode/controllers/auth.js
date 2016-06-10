@@ -18,7 +18,7 @@ router.post('/login', function(req, res) {
       res.send({error: err, bonus: "bonus"});
     } else if (user) {
       req.session.userId = user.id;
-      res.redirect('/landing-pad');
+      res.redirect('/');
     } else {
       req.flash('user and/or password invalid');
     }

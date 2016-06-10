@@ -42,13 +42,14 @@
       </thead>
       <tbody>
         <% scenarios.forEach(function(scenario) { %>
-        <tr id="">
-          <td class="viewInfo btn-sm btn-info" viewId="<%= scenario.id %>">Details</td>
-          <td class="danger"><%= scenario.heroOne %></td>
-          <td id="scenId" class="warning"></td>
-          <td class="info"><%= scenario.heroTwo %></td>
-          <td class="success"><%= scenario.comment %></td>
+        <tr>
+          <td><a href="/fight/<%= scenario.id %>/" method="GET" viewId="<%= scenario.id %>">Details</a></td>
+          <td id="heroOne" class="danger"><%= scenario.heroOne %></td>
+          <td class="warning"></td>
+          <td id="heroTwo" class="info"><%= scenario.heroTwo %></td>
+          <td id="exp" class="success"><%= scenario.comment %></td>
         </tr>
+        <div class="hidden"></div>
         <% }); %>
       </tbody>
     </table>

@@ -79,22 +79,28 @@ app.post('/search', function(req,res) {
     });
 });
 
-app.get('/fight', function(req,res) {
-  res.render('fight', {
-    scenario: req.body
+// app.get('/fight', function(req,res) {
+//   res.render('fight', {
+//     scenario: req.body
+//
+//   })
+//
+// });
 
-  })
+// app.get('/fight/:scenario_id', function(req,res){
+//
+// })
+//
 
-});
-app.post('/fight', function(req,res) {
-  console.log(req.body.id)
-  var scenId = req.body.id;
+
+app.get('/fight/:id', function(req,res) {
+    var scenId = req.params.id;
+    console.log(scenId)
   db.scenario.findById(scenId)
   .then(function(scenario){
-    console.log(scenario.dataValues.id)
+    console.log(scenario)
     res.render('fight', {
-      scenario: scenario
-
+      'scenarios': scenario
     })
   })
 });
@@ -103,9 +109,9 @@ app.get('/scenarios-user', function(req, res) {
   console.log(req.currentUser.id)
   db.scenario.findAll({where:
     {userId: req.currentUser.id}
-  }).then(function(scenarios) {
+  }).then(function(scenario) {
       res.render('scenarios-user',
-      {scenarios: scenarios}
+      {scenarios: JSON.stringify(scenario)}
     )
   });
 });

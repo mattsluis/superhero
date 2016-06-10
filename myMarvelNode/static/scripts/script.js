@@ -122,24 +122,49 @@ $('.remove').click(function(e) {
   }).done(onDone);
 });
 
-$('.viewInfo').click(function(e){
-  e.preventDefault()
-  console.log('clicked')
-  var scenId = {
-    id: $(this).attr('viewId')
-  }
-  console.log(scenId);
+// $('.viewInfo').click(function(e){
+//   console.log('click');
+//   // var id = $(this).attr('viewId')
+//   var id = parseInt($(this).attr('viewId'), 10);
+//   console.log(id);
+//   $.ajax({
+//     url: '/fight/:id',
+//     method: 'GET',
+//     error: function(data) {
+//       console.log(data)
+//     },
+//     success: function() {
+//       console.log('success');
+//
+//     }
+//   })
+// })
 
-  $.ajax({
-    url: '/fight',
-    method: 'POST',
-    data: scenId,
-    error: function(data) {
-      console.log(data)
-    },
-    success: function() {
-      console.log('success');
-      window.location = '/fight';
-    }
-  })
-});
+
+
+
+//
+// $('.viewInfo').click(function(e){
+
+  // console.log('clicked')
+  // var scenId = {
+  //   // id: $(this).attr('viewId')
+  //   heroOne: $('#heroOne').text(),
+  //   heroTwo: $('#heroTwo').text(),
+  //   exp: $('#exp').text()
+  // }
+  // console.log(scenId);
+
+//   $.ajax({
+//     url: '/fight',
+//     method: 'POST',
+//     data: scenId,
+//     error: function(data) {
+//       console.log(data)
+//     },
+//     success: function() {
+//       console.log('success');
+//       window.location = '/fight';
+//     }
+//   })
+// });
